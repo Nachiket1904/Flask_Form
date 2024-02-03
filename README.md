@@ -56,11 +56,11 @@ Below are screenshots showcasing the application's main features:
 - **Data Handling and Alerts**
 
   ![Data Handling and Alerts](images/form_handling.png)
-    ![Data Handling and Alerts](images/formhandling2.0.png)
+    ![Data Handling and Alerts](images/formhandling2.png)
 
 - **Submissions Page**
 
-  ![Submissions Data](images/submissions_page.png)
+  ![Submissions Data](images/outputdata.png)
 
 ## Technologies
 
