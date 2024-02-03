@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script>
+        // Function to validate the form
+        function validateForm() {
+            var name = document.getElementById('name').value;
+            var contact = document.getElementById('contact').value;
+            var age = document.getElementById('age').value;
+    
+            // Regex for validation
+            var nameRegex = /^[a-zA-Z\s]+$/;
+            var contactRegex = /^[0-9]+$/;
+            var ageRegex = /^[0-9]+$/;
+    
+            // Validate Name
+            if (!nameRegex.test(name)) {
+                alert("Name must contain only letters and spaces.");
+                return false; // Prevent form submission
+            }
+    
+            // Validate Contact
+            if (!contactRegex.test(contact) || contact.length != 10) {
+                alert("Contact must contain 10 digits only.");
+                return false; // Prevent form submission
+            }
+    
+            // Validate Age
+            if (!ageRegex.test(age) || age <= 0 || age > 120) {
+                alert("Please enter a valid age.");
+                return false; // Prevent form submission
+            }
+    
+            return true; // Allow form submission
+        }
+    </script>
+    
+
+</head>
+
+<body style="background-color: #f0f2f5;">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid justify-content-center">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#contactModal">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        
+        <div class="row">
+            <!-- Quote Card -->
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Daily Quote</h5>
+                        <p class="card-text">"{{ random_quote }}"</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Weather Card -->
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Weather Information</h5>
+                        <p class="card-text">{{ weather_info }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Current Time Card -->
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Current Time</h5>
+                        <p class="card-text">{{ current_time }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Personal Info Card -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Personal Information</h5>
+                <p class="card-text">Driven AI enthusiast with a strong academic foundation in Artificial Intelligence and Information Technology from BK Birla College, excelling in software development at NeuralIT. With a proven record in enhancing HRMS software by 15% and playing a pivotal role in the "Adapt PFS" project—reducing processing time by 20% my portfolio showcases high-accuracy projects like a CNN model for kidney stone diagnosis and a user-friendly Trip Assistant Chatbot. Known for impactful contributions and innovative problem-solving.</p>
+                <p>My work has not only led to significant software improvements but also earned me the "Bright Beginner" accolade for my contributions. Beyond my technical</p>            
+            </div>
+        </div>
+        
+        <!-- Project Info Card -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Project Information</h5>
+                <p class="card-text">Developed a full-stack web application featuring a Flask-based server and SQLite for data handling. Implemented a responsive HTML/CSS frontend displaying dynamic content like quotes and weather, alongside a real-time clock. Added a contact form with rigorous validation, successfully storing submissions in a database. Enhanced user interaction with CRUD functionalities, enabling data persistence and seamless user data management. The project adheres to best coding practices, demonstrating proficiency in web development, server management, and database operations.</p>
+            </div>
+        </div>
+    </div>
+    
+<!-- Contact Form Modal -->
+<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="contactModalLabel">Contact Form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/submit-form" method="post" onsubmit="return validateForm()">
+                                      
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                            
+                        </div>
+     
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                            
+                        </div>
+                    
+                        <div class="mb-3">
+                            <label for="contact" class="form-label">Contact No:</label>
+                            <input type="text" class="form-control" id="contact" name="contact" maxlength="10">
+                            
+                        </div>
+                    
+                        <div class="mb-3">
+                            <label for="age" class="form-label">Age:</label>
+                            <input type="text" class="form-control" id="age" name="age" maxlength="3" >
+                            
+                        </div>
+                    
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message:</label>
+                            <textarea class="form-control" id="message" name="message" required ></textarea>
+                        
+                        </div>
+                    
+                        <button type="submit" class="btn btn-primary" onclick="validateForm()">Submit</button>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+<footer class="bg-light text-center text-lg-start">
+     
+    
+</footer>
+
+<style>
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: red;
+      color: white;
+      text-align: center;
+    }
+    </style>
+    
+    <div class="footer bg-light text-center text-lg-start">
+        <div class="text-center p-3 bg-dark text-white">
+            © 2024 Designed by Nachiket 
+        </div>
+    </div>
+      
+</html>
+    
